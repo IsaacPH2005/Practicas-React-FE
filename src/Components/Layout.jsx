@@ -1,4 +1,3 @@
-// Define la estructura visual común (encabezado, pie de página, navegación).
 import { useEffect } from 'react';
 import { Link, Outlet, useNavigate, useLocation } from 'react-router';
 
@@ -13,60 +12,37 @@ function Layout({ setCurrentPathForApp }) {
         }
     }, [location, setCurrentPathForApp]);
 
-    // Manejador de navegación (opcional, Link ya maneja la navegación básica).
-    // Puede ser útil para lógica adicional antes o después de navegar.
-    const handleNavigate = (path) => {
-        navigate(path);
-    };
-
-    // Estilos en línea para los enlaces de navegación (ejemplo)
-    // En una aplicación real, podrías usar clases CSS o un sistema de componentes estilizados.
-    const navLinkStyle = {
-        padding: '8px 12px',
-        borderRadius: '4px',
-        textDecoration: 'none',
-        color: '#333', // Color de enlace normal
-        margin: '0 5px',
-        display: 'inline-block' // Para que el padding y margin funcionen bien
-    };
-
-    const activeLinkStyle = {
-        ...navLinkStyle,
-        backgroundColor: '#007bff', // Color de fondo para enlace activo
-        color: 'white', // Color de texto para enlace activo
-    };
-
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', fontFamily: 'Arial, sans-serif' }}>
-            <header style={{ backgroundColor: '#f0f0f0', padding: '10px 20px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
-                <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', maxWidth: '960px', margin: '0 auto' }}>
-                    <div style={{ fontSize: '1.5em', fontWeight: 'bold' }}>
-                        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <div className="flex flex-col min-h-screen font-sans">
+            <header className="bg-gray-100 p-4 shadow">
+                <nav className="flex justify-between items-center max-w-4xl mx-auto">
+                    <div className="text-2xl font-bold">
+                        <Link to="/" className="text-gray-800 no-underline">
                             MiAplicación
                         </Link>
                     </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+                    <div className="flex space-x-4">
                         <Link
                             to="/"
-                            style={location.pathname === '/' ? activeLinkStyle : navLinkStyle}
+                            className={`px-3 py-2 rounded ${location.pathname === '/' ? 'bg-blue-600 text-white' : 'text-gray-800 hover:bg-blue-500 hover:text-white'}`}
                         >
                             Inicio
                         </Link>
                         <Link
                             to="/about"
-                            style={location.pathname === '/about' ? activeLinkStyle : navLinkStyle}
+                            className={`px-3 py-2 rounded ${location.pathname === '/about' ? 'bg-blue-600 text-white' : 'text-gray-800 hover:bg-blue-500 hover:text-white'}`}
                         >
                             Sobre Nosotros
                         </Link>
                         <Link
                             to="/contact"
-                            style={location.pathname === '/contact' ? activeLinkStyle : navLinkStyle}
+                            className={`px-3 py-2 rounded ${location.pathname === '/contact' ? 'bg-blue-600 text-white' : 'text-gray-800 hover:bg-blue-500 hover:text-white'}`}
                         >
                             Contacto
                         </Link>
                         <Link
                             to="/enlace-roto-demo" // Para probar la página 404
-                            style={location.pathname === '/enlace-roto-demo' ? activeLinkStyle : navLinkStyle}
+                            className={`px-3 py-2 rounded ${location.pathname === '/enlace-roto-demo' ? 'bg-blue-600 text-white' : 'text-gray-800 hover:bg-blue-500 hover:text-white'}`}
                         >
                             Probar 404
                         </Link>
@@ -75,11 +51,11 @@ function Layout({ setCurrentPathForApp }) {
             </header>
 
             {/* El contenido principal de la página se renderizará aquí */}
-            <main style={{ flexGrow: 1, padding: '20px', maxWidth: '960px', width: '100%', margin: '0 auto', boxSizing: 'border-box' }}>
+            <main className="flex-grow p-5 max-w-4xl mx-auto">
                 <Outlet /> {/* Outlet renderiza el componente de la ruta hija coincidente */}
             </main>
 
-            <footer style={{ backgroundColor: '#333', color: 'white', textAlign: 'center', padding: '15px 0', marginTop: 'auto' }}>
+            <footer className="bg-gray-800 text-white text-center p-4 mt-auto">
                 <p>&copy; {new Date().getFullYear()} MiAplicación Inc. Todos los derechos reservados.</p>
             </footer>
         </div>
